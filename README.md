@@ -4,7 +4,8 @@ Make sure to have Python 3 installed.
 
 To run the server application, open a command terminal, and navigate to the folder where you saved this Python script. 
 
-Replace the required variables (Client ID, Secrect ID etc...) in the oauth.py file on lines 23 and 24, then run:
+Replace the required variables (Client ID, Secrect ID etc...) in the oauth.py file on lines 23 and 24, Replace the URL in the <a> tag in 
+  index.html, then run:
 
 *python3 oauth.py*
 

@@ -1,0 +1,27 @@
+* { font-family:"Tahoma"; padding:0px; margin:0px; text-align:center; }
+section.container { min-width:512px; }
+div.center { margin:0px auto; }
+div.content { width:512px; }
+div.spacer { padding:25px 0px; width:512px; }
+div.spacer-small { padding:10px 0px; width:512px; }
+div.button { padding:10px; background-color:rgb(12,153,213); color:rgb(255,255,255); }
+div.granted { padding:10px; background-color:rgb(12,153,213); color:rgb(255,255,255); }
+a:link { -webkit-appearance: button;
+         -moz-appearance: button;
+         appearance: button;
+
+         text-decoration: none;
+         color: initial; }
+a:visited { text-decoration: none; }
+a:hover { text-decoration: none; }
+a:active { text-decoration: none; }
+p {
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  margin-left: 0;
+  margin-right: 0;
+  color: navy;
+  text-indent: 30px;
+  text-align:left;
+}

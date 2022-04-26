@@ -1,0 +1,11 @@
+{% extends "temp.html" %}
+
+{% block content %}
+    <h1>SPACES</h1>
+
+    <ul>
+        {% for space in spaces %}
+            <p>{{ space }}</p>
+        {% endfor %}
+    </ul>
+{% endblock %}

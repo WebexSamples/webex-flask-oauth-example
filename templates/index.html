@@ -5,5 +5,5 @@
       <h1>GRANT INTEGRATION ACCESS</h1>
       <!-- STEP 1 : Button that kicks off the flow by sending your user to the following URL along with a standard set of OAuth query parameters, state parameter is hard coded here-->
       <!-- The scope parameter in the integration is set to spark:all for simplicity in this example, in production this should be fine tuned -->
-      <div class='center'><a href='https://webexapis.com/v1/authorize?REPLACE WITH YOUR OAUTH AUTHORIZATION URL PARAMETERS state=1234abcd'><div class='button' style='width:512px;'>GRANT</div></a></div>
+      <div class='center'><a href='https://webexapis.com/v1/authorize?client_id=C2837a6f3bf76d5790862aa2191c8d3e78901d3697343dfe433b51acae2253f06&response_type=code&redirect_uri=http%3A%2F%2F0.0.0.0%3A10060%2Foauth&scope=spark%3Akms%20spark%3Arooms_read%20meeting%3Aschedules_write&state=1234abcd'><div class='button' style='width:512px;'>GRANT</div></a></div>
 {% endblock %}

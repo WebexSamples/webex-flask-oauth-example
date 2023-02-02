@@ -20,8 +20,8 @@ os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
 app = Flask(__name__)
 app.secret_key = os.urandom(24)
 
-clientID = "YOUR CLIENT ID HERE"
-secretID = "YOUR CLIENT SECRET HERE"
+clientID = "C2837a6f3bf76d5790862aa2191c8d3e78901d3697343dfe433b51acae2253f06"
+secretID = "7edac18fce36e4d05c9c87ffea4d1334b5fe2eb0ca90cf6d81fc591a1f5061fe"
 redirectURI = "http://0.0.0.0:10060/oauth" #This could be different if you publicly expose this endpoint.
 
 
@@ -46,6 +46,36 @@ def get_tokens(code):
     headers = {'accept':'application/json','content-type':'application/x-www-form-urlencoded'}
     payload = ("grant_type=authorization_code&client_id={0}&client_secret={1}&"
                     "code={2}&redirect_uri={3}").format(clientID, secretID, code, redirectURI)
+    req = requests.post(url=url, data=payload, headers=headers)
+    results = json.loads(req.text)
+    
+    access_token = results["access_token"]
+    refresh_token = results["refresh_token"]
+
+    session['oauth_token'] = access_token 
+    session['refresh_token'] = refresh_token
+
+    print("Token stored in session : ", session['oauth_token'])
+    print("Refresh Token stored in session : ", session['refresh_token'])
+    return 
+
+"""
+Function Name : get_tokens_refresh()
+Description : This is a utility function that leverages the refresh token
+              in exchange for a fresh access_token and refresh_token
+              when a 401 is received when using an invalid access_token
+              while making an api_call().
+              NOTE: in production, auth tokens would not be stored
+              in a Session. This app will request a new token each time
+              it runs which will not be able to check against expired tokens. 
+"""
+def get_tokens_refresh():
+    print("function : get_token_refresh()")
+    
+    url = "https://webexapis.com/v1/access_token"
+    headers = {'accept':'application/json','content-type':'application/x-www-form-urlencoded'}
+    payload = ("grant_type=refresh_token&client_id={0}&client_secret={1}&"
+                    "refresh_token={2}").format(clientID, secretID, session['refresh_token'])
     req = requests.post(url=url, data=payload, headers=headers)
     results = json.loads(req.text)
     
@@ -114,10 +144,14 @@ Description : Now that we have our authentication code the spaces button
 def  spaces():
     print("function : spaces()")
     print("accessing token ...")
-    accessToken = session['oauth_token']
-    url = "https://webexapis.com/v1/rooms"
-    headers = {'accept':'application/json','Content-Type':'application/json','Authorization': 'Bearer ' + accessToken}
-    response = requests.get(url=url, headers=headers)
+    response = api_call()
+
+    print("status code : ", response.status_code)
+
+    if (response.status_code == 401) :
+        get_tokens_refresh()
+        response = api_call()
+
     r = response.json()['items']
     print("response status code : ", response.status_code)
     spaces = []
@@ -125,6 +159,13 @@ def  spaces():
         spaces.append(r[i]['title'])
 
     return render_template("spaces.html", spaces = spaces)
+
+def api_call() :
+    accessToken = session['oauth_token']
+    url = "https://webexapis.com/v1/rooms"
+    headers = {'accept':'application/json','Content-Type':'application/json','Authorization': 'Bearer ' + accessToken}
+    response = requests.get(url=url, headers=headers)
+    return response
 
 if __name__ == '__main__':
     app.run("0.0.0.0", port=10060, debug=False)

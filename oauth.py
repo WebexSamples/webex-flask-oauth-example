@@ -147,7 +147,8 @@ def  spaces():
     response = api_call()
 
     print("status code : ", response.status_code)
-
+    #Do a check on the response. If the access_token is invalid then use refresh
+    # tokent to ontain a new set of access token and refresh token.
     if (response.status_code == 401) :
         get_tokens_refresh()
         response = api_call()

@@ -106,8 +106,8 @@ def main_page():
 
 """
 Function Name : oauth
-Description : After the grant button is click from index.html
-              and the user logs into thier Webex account, the 
+Description : After the grant button click from index.html
+              and the user logs into their Webex account, the 
               are redirected here as this is the html file that
               this function renders upon successful authentication
               is granted.html. else, the user is sent back to index.html
@@ -133,7 +133,7 @@ def oauth():
         return render_template("index.html")
 
 """
-Funcion Name : spaces
+Function Name : spaces
 Description : Now that we have our authentication code the spaces button
               on the granted page can leverage this function to get list 
               of spaces that the user behind the token is listed in. The
@@ -147,8 +147,8 @@ def  spaces():
     response = api_call()
 
     print("status code : ", response.status_code)
-    #Do a check on the response. If the access_token is invalid then use refresh
-    # tokent to ontain a new set of access token and refresh token.
+    # Do a check on the response. If the access_token is invalid then use refresh
+    # token to obtain a new set of access token and refresh token.
     if (response.status_code == 401) :
         get_tokens_refresh()
         response = api_call()

@@ -106,8 +106,8 @@ def main_page():
 
 """
 Function Name : oauth
-Description : After the grant button is click from index.html
-              and the user logs into thier Webex account, the 
+Description : After the grant button click from index.html
+              and the user logs into their Webex account, the 
               are redirected here as this is the html file that
               this function renders upon successful authentication
               is granted.html. else, the user is sent back to index.html

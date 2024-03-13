@@ -30,18 +30,18 @@ Function Name : get_tokens
 Description : This is a utility function that takes in the 
               Authorization Code as a parameter. The code 
               is used to make a call to the access_token end 
-              point on the webex api to obtain a access token
-              and a refresh token that is then stored as in the 
+              point on the Webex API to obtain an access token
+              and a refresh token.  These tokens are then stored in the 
               Session for use in other parts of the app. 
               NOTE: in production, auth tokens would not be stored
               in a Session. This app will request a new token each time
-              it runs which will not be able to check against expired tokens. 
+              it runs, which will not be able to check against expired tokens. 
 """
 def get_tokens(code):
     print("function : get_tokens()")
     print("code:", code)
-    #STEP 3 : use code in response from webex api to collect the code parameter
-    #to obtain an access token or refresh token
+    #STEP 3 : use the code received from the Webex API response to collect the code parameter
+    #in order to obtain an access token or refresh token
     url = "https://webexapis.com/v1/access_token"
     headers = {'accept':'application/json','content-type':'application/x-www-form-urlencoded'}
     payload = ("grant_type=authorization_code&client_id={0}&client_secret={1}&"
@@ -62,12 +62,12 @@ def get_tokens(code):
 """
 Function Name : get_tokens_refresh()
 Description : This is a utility function that leverages the refresh token
-              in exchange for a fresh access_token and refresh_token
-              when a 401 is received when using an invalid access_token
-              while making an api_call().
+              to exchange it for a fresh access_token and refresh_token
+              when a 401 is received while making an api_call()
+              with an invaild access_token.
               NOTE: in production, auth tokens would not be stored
               in a Session. This app will request a new token each time
-              it runs which will not be able to check against expired tokens. 
+              it runs, which will not be able to check against expired tokens. 
 """
 def get_tokens_refresh():
     print("function : get_token_refresh()")
@@ -91,12 +91,12 @@ def get_tokens_refresh():
 
 """
 Function Name : main_page
-Description : when using the browser to access server at
+Description : When using the browser to access the server at
               http://127/0.0.1:10060 this function will 
-              render the html file index.html. That file 
-              contains the button that kicks off step 1
-              of the Oauth process with the click of the 
-              grant button
+              render the HTML file index.html. That file 
+              contains the button that initiates step 1 
+              of the OAuth process with the click of the
+              grant button.
 """
 @app.route("/") 
 
@@ -134,11 +134,11 @@ def oauth():
 
 """
 Funcion Name : spaces
-Description : Now that we have our authentication code the spaces button
-              on the granted page can leverage this function to get list 
+Description : Now that we have our authentication code, the "Spaces" button
+              on the granted page can leverage this function to get a list
               of spaces that the user behind the token is listed in. The
               Authentication Token is accessed via Session Key 'oauth_token'
-              and used to construct the api call in authenticated mode. 
+              and used to construct the API call in authenticated mode. 
 """
 @app.route("/spaces",methods=['GET'])
 def  spaces():
